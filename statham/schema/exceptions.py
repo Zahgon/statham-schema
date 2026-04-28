@@ -12,12 +12,7 @@ class SchemaDefinitionError(StathamError):
 
     @classmethod
     def reserved_attribute(cls, attribute_name: str) -> "SchemaDefinitionError":
-        return cls(
-            f"May not use reserved attribute `{attribute_name}` as a property "
-            "attribute name. Instead use "
-            f"`{attribute_name}_ = Property(<element>, "
-            f"source='{attribute_name}'`"
-        )
+        pass
 
 
 class ValidationError(StathamError):
@@ -25,31 +20,17 @@ class ValidationError(StathamError):
 
     @classmethod
     def from_validator(cls, property_, value, message) -> "ValidationError":
-        value_string = (
-            f"{repr(property_.parent)}.{property_.name} = {repr(value)}`"
-            if property_.name != "<unbound>"
-            else repr(value)
-        )
-        return cls(f"Failed validating `{value_string}`. {message}")
+        pass
 
     @classmethod
     def combine(
         cls, property_, value, exceptions, message
     ) -> "ValidationError":
-        base_message = str(cls.from_validator(property_, value, ""))
-        error_breakdown = ", ".join(str(exc) for exc in exceptions)
-        error_breakdown = error_breakdown.replace(base_message, "")
-        return cls.from_validator(
-            property_, value, message + f" Individual errors: {error_breakdown}"
-        )
+        pass
 
     @classmethod
     def multiple_composition_match(cls, matching_models, data):
-        return cls(
-            "Matches multiple possible models. Must only match one.\n"
-            f"Data: {data}\n"
-            f"Models: {matching_models}"
-        )
+        pass
 
 
 class SchemaParseError(StathamError):

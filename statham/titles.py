@@ -38,7 +38,6 @@ def title_labeller() -> Callable[[str], Tuple[str, str]]:
     """
 
     def _get_title(reference: str) -> Tuple[str, str]:
-        name = _get_title_from_reference(reference)
-        return "_x_autotitle", name
+        pass
 
     return _get_title

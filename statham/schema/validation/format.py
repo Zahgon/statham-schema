@@ -17,7 +17,7 @@ class _FormatString:
 
     def register(self, format_string: str) -> Callable:
         def _register_callable(is_format: Callable[[str], bool]):
-            self._callable_register[format_string] = is_format
+            pass
 
         return _register_callable
 
@@ -58,17 +58,9 @@ Validators for new formats may be registered as follows:
 
 @format_checker.register("uuid")
 def _is_uuid(value: str) -> bool:
-    try:
-        UUID(value)
-    except (ValueError, TypeError):
-        return False
-    return True
+    pass
 
 
 @format_checker.register("date-time")
 def _is_date_time(value: str) -> bool:
-    try:
-        parse_datetime(value)
-    except (ParserError, TypeError):
-        return False
-    return True
+    pass

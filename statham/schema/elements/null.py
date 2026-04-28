@@ -23,8 +23,8 @@ class Null(Element[None]):
 
     @property
     def annotation(self) -> str:
-        return "None"
+        pass
 
     @property
     def type_validator(self):
-        return InstanceOf(type(None))
+        pass

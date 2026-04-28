@@ -22,8 +22,7 @@ class Required(Validator):
         return Required(required)
 
     def _validate(self, value: Any):
-        if set(self.params["required"]) - set(value):
-            raise ValidationError
+        pass
 
 
 class AdditionalProperties(Validator):
@@ -34,18 +33,10 @@ class AdditionalProperties(Validator):
     message = "Must not contain unspecified properties. Accepts: {properties}"
 
     def error_message(self):
-        return self.message.format(
-            properties=set(self.params["__properties__"])
-        )
+        pass
 
     def _validate(self, value: Any):
-        if self.params["__properties__"].additional:
-            return
-        bad_properties = {
-            key for key in value if key not in self.params["__properties__"]
-        }
-        if bad_properties:
-            raise ValidationError
+        pass
 
 
 class MinProperties(Validator):
@@ -56,8 +47,7 @@ class MinProperties(Validator):
     message = "Must contain at least {minProperties} properties."
 
     def _validate(self, value: Any):
-        if len(value) < self.params["minProperties"]:
-            raise ValidationError
+        pass
 
 
 class MaxProperties(Validator):
@@ -68,8 +58,7 @@ class MaxProperties(Validator):
     message = "Must contain at most {maxProperties} properties."
 
     def _validate(self, value: Any):
-        if len(value) > self.params["maxProperties"]:
-            raise ValidationError
+        pass
 
 
 class PropertyNames(Validator):
@@ -80,11 +69,7 @@ class PropertyNames(Validator):
     message = "Property names must match schema {propertyNames}"
 
     def _validate(self, value: Any):
-        for prop_name in value:
-            try:
-                self.params["propertyNames"](prop_name)
-            except (ValidationError, TypeError):
-                raise ValidationError
+        pass
 
 
 class Dependencies(Validator):
@@ -93,18 +78,8 @@ class Dependencies(Validator):
     message = "Must match defined dependencies: {dependencies}."
 
     def _validate(self, value: Any):
-        for key, dep in self.params["dependencies"].items():
-            if key not in value:
-                continue
-            if isinstance(dep, list):
-                # pylint: disable=protected-access
-                Required(dep)._validate(value)
-            else:
-                self.validate_schema_dependency(dep, value)
+        pass
 
     @staticmethod
     def validate_schema_dependency(dependency, value):
-        try:
-            _ = dependency(value)
-        except (TypeError, ValidationError):
-            raise ValidationError
+        pass

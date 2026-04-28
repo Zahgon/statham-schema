@@ -192,15 +192,11 @@ class Element(Generic[T]):
 
     @property
     def properties(self) -> Maybe[_PropertyDict]:
-        return self._properties
+        pass
 
     @properties.setter
     def properties(self, value: Maybe[Dict[str, _Property]]):
-        if isinstance(value, NotPassed):
-            self._properties = value
-            return
-        self._properties = _PropertyDict(cast(Dict[str, _Property], value))
-        self._properties.parent = self
+        pass
 
     def __repr__(self):
         """Dynamically construct the repr to match value instantiation."""
@@ -225,28 +221,18 @@ class Element(Generic[T]):
     @property
     def annotation(self) -> str:
         # pylint: disable=no-member
-        generic = type(self).__orig_bases__[0].__args__[0]  # type: ignore
-        if isinstance(generic, TypeVar):  # type: ignore
-            return "Any"
-        return generic.__name__
+        pass
 
     @property
     def type_validator(self) -> Validator:
-        return InstanceOf()
+        pass
 
     @property
     def validators(self) -> List[Validator]:
-        validators: List[Validator] = [self.type_validator] + list(
-            get_validators(self)
-        )
-        return validators
+        pass
 
     def construct(self, value, property_):
-        if isinstance(value, list):
-            return self.__items__(value, property_)
-        if isinstance(value, dict):
-            return _AnonymousObject(**self.__properties__(value))
-        return value
+        pass
 
     @property
     def __properties__(self) -> "Properties":
@@ -279,9 +265,7 @@ class Element(Generic[T]):
         property_ = property_ or UNBOUND_PROPERTY
 
         def create(value):
-            for validator in self.validators:
-                validator(value, property_)
-            return self.construct(value, property_)
+            pass
 
         if not isinstance(self.default, NotPassed) and isinstance(
             value, NotPassed
@@ -310,11 +294,11 @@ class Nothing(Element):
 
     @property
     def annotation(self) -> str:
-        return "None"
+        pass
 
     @property
     def validators(self) -> List[Validator]:
-        return [NoMatch()]
+        pass
 
 
 # Needs to be imported last to prevent cyclic import.

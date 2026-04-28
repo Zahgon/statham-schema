@@ -20,7 +20,7 @@ class Args:
         self.kwargs = kwargs
 
     def apply(self, function):
-        return function(*self.args, **self.kwargs)
+        pass
 
     def __repr__(self):
         arg_string = ", ".join([repr(arg) for arg in self.args])
@@ -70,13 +70,7 @@ def reraise(catch: ExceptionTypes, throw: Type[Exception], message: str):
 
     def _decorator(function):
         @wraps(function)
-        def _wrapper(*args, **kwargs):
-            try:
-                return function(*args, **kwargs)
-            except catch as exc:
-                raise throw(message) from exc
-
-        return _wrapper
+        pass
 
     return _decorator
 
@@ -90,11 +84,7 @@ def split_dict(
     """Split a dictionary on matching and non-matching keys."""
 
     def _split(dictionary: Dict[T, Any]) -> Tuple[Dict[T, Any], Dict[T, Any]]:
-        match = {key: value for key, value in dictionary.items() if key in keys}
-        complement = {
-            key: value for key, value in dictionary.items() if key not in keys
-        }
-        return match, complement
+        pass
 
     return _split
 

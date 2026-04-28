@@ -23,4 +23,4 @@ class Boolean(Element[bool]):
 
     @property
     def type_validator(self):
-        return InstanceOf(bool)
+        pass

@@ -11,8 +11,7 @@ class Minimum(Validator):
     message = "Must be greater than or equal to {minimum}."
 
     def _validate(self, value: Any):
-        if value < self.params["minimum"]:
-            raise ValidationError
+        pass
 
 
 class Maximum(Validator):
@@ -23,8 +22,7 @@ class Maximum(Validator):
     message = "Must be less than or equal to {maximum}."
 
     def _validate(self, value: Any):
-        if value > self.params["maximum"]:
-            raise ValidationError
+        pass
 
 
 class ExclusiveMinimum(Validator):
@@ -35,8 +33,7 @@ class ExclusiveMinimum(Validator):
     message = "Must be strictly greater than {exclusiveMinimum}."
 
     def _validate(self, value: Any):
-        if value <= self.params["exclusiveMinimum"]:
-            raise ValidationError
+        pass
 
 
 class ExclusiveMaximum(Validator):
@@ -47,8 +44,7 @@ class ExclusiveMaximum(Validator):
     message = "Must be strictly less than {exclusiveMaximum}."
 
     def _validate(self, value: Any):
-        if value >= self.params["exclusiveMaximum"]:
-            raise ValidationError
+        pass
 
 
 class MultipleOf(Validator):
@@ -59,11 +55,4 @@ class MultipleOf(Validator):
     message = "Must be a multiple of {multipleOf}."
 
     def _validate(self, value: Any):
-        multiple_of = self.params["multipleOf"]
-        if isinstance(multiple_of, float):
-            quotient = value / multiple_of
-            if int(quotient) != quotient:
-                raise ValidationError
-            return
-        if value % multiple_of:
-            raise ValidationError
+        pass

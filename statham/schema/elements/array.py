@@ -47,26 +47,13 @@ class Array(Element[List[Item]]):  # pylint: disable=missing-param-doc
 
     @property
     def annotation(self) -> str:
-        if not self.item_annotations:
-            return "List"
-        if len(self.item_annotations) == 1:
-            return f"List[{self.item_annotations[0]}]"
-        return f"List[Union[{', '.join(self.item_annotations)}]]"
+        pass
 
     @property
     def item_annotations(self) -> List[str]:
         """Get a list of possible type annotations."""
-        if isinstance(self.items, Element):
-            return [self.items.annotation]
-        annotations: List[str] = [item.annotation for item in self.items]
-        if self.additionalItems is True:
-            return ["Any"]
-        if isinstance(self.additionalItems, Element):
-            annotations.append(self.additionalItems.annotation)
-        if "Any" in annotations:
-            return ["Any"]
-        return remove_duplicates(annotations)
+        pass
 
     @property
     def type_validator(self):
-        return InstanceOf(list)
+        pass

@@ -133,29 +133,18 @@ class ObjectMeta(type, Element):
 
     @property
     def annotation(cls) -> str:
-        return cls.__name__
+        pass
 
     def __repr__(cls):
         return cls.__name__
 
     @property
     def type_validator(cls) -> Validator:
-        return InstanceOf(dict, cls)
+        pass
 
     @property
     def validators(cls) -> List[Validator]:
-        possible_validators = [
-            cls.type_validator,
-            Required.from_element(cls),
-            AdditionalProperties(cls.__properties__),
-            MinProperties.from_element(cls),
-            MaxProperties.from_element(cls),
-            PropertyNames.from_element(cls),
-            Const.from_element(cls),
-            Enum.from_element(cls),
-            Dependencies.from_element(cls),
-        ]
-        return [validator for validator in possible_validators if validator]
+        pass
 
     def python(cls) -> str:
         super_cls = next(iter(cls.mro()[1:]))

@@ -34,4 +34,4 @@ class String(Element[str]):  # pylint: disable=too-many-instance-attributes
 
     @property
     def type_validator(self):
-        return InstanceOf(str)
+        pass

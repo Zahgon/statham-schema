@@ -17,11 +17,7 @@ def _is_instance(value, type_args):
 
     In CPython, isinstance(True, int) evaluates True.
     """
-    if isinstance(value, bool):
-        if bool in type_args:
-            return True
-        return False
-    return isinstance(value, type_args)
+    pass
 
 
 class Validator:
@@ -83,11 +79,11 @@ class Validator:
         automatically generated from the `message` class variable for
         consistency.
         """
-        return
+        pass
 
     def error_message(self):
         """Generate the error message on failed validation."""
-        return self.message.format(**self.params)
+        pass
 
     def __call__(self, value: Any, property_: Any):
         """Apply the validator to a value.
@@ -123,10 +119,7 @@ class InstanceOf(Validator):
         self.params["type_names"] = f"({','.join(names)})"
 
     def _validate(self, value: Any):
-        if value == NotPassed() or not self.params["types"]:
-            return
-        if not _is_instance(value, self.params["types"]):
-            raise ValidationError
+        pass
 
 
 class NoMatch(Validator):
@@ -138,9 +131,7 @@ class NoMatch(Validator):
     message = "Schema does not accept any values."
 
     def _validate(self, value: Any):
-        if value is NotPassed():
-            return
-        raise ValidationError
+        pass
 
 
 class Const(Validator):
@@ -150,10 +141,7 @@ class Const(Validator):
     message = "Must match constant value: {const}"
 
     def _validate(self, value: Any):
-        aliased = replace_bool(value)
-        const = replace_bool(self.params["const"])
-        if aliased != const:
-            raise ValidationError
+        pass
 
 
 class Enum(Validator):
@@ -163,7 +151,4 @@ class Enum(Validator):
     message = "Must be one of these values: {enum}"
 
     def _validate(self, value: Any):
-        aliased = replace_bool(value)
-        enum = list(map(replace_bool, self.params["enum"]))
-        if aliased not in enum:
-            raise ValidationError
+        pass

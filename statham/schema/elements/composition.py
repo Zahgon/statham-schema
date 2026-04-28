@@ -27,13 +27,7 @@ class Not(Element[T]):
         super().__init__(default=default)
 
     def construct(self, value: Any, property_: _Property):
-        try:
-            _ = self.element(value, property_)
-        except (TypeError, ValidationError):
-            return value
-        raise ValidationError.from_validator(
-            property_, value, f"Must not match {self.element}."
-        )
+        pass
 
 
 class CompositionElement(Element):
@@ -57,20 +51,10 @@ class CompositionElement(Element):
 
     @property
     def annotation(self):
-        annotations = remove_duplicates(
-            elem.annotation for elem in self.elements
-        )
-        if len(annotations) == 1:
-            return annotations[0]
-        if "Any" in annotations:
-            return "Any"
-        joined = ", ".join(annotations)
-        return f"Union[{joined}]"
+        pass
 
     def construct(self, value: Any, property_: _Property):
-        if not getattr(self, "mode", None):
-            raise NotImplementedError
-        return _attempt_schemas(self.elements, value, property_, mode=self.mode)
+        pass
 
 
 class AnyOf(CompositionElement):
@@ -121,22 +105,7 @@ class AllOf(CompositionElement):
         first union type annotation if no explicit annotations are
         present.
         """
-        return next(
-            (
-                elem.annotation
-                for elem in self.elements
-                if elem.annotation != "Any"
-                and not elem.annotation.startswith("Union")
-            ),
-            next(
-                (
-                    elem.annotation
-                    for elem in self.elements
-                    if elem.annotation != "Any"
-                ),
-                "Any",
-            ),
-        )
+        pass
 
 
 class Outcome(NamedTuple):
@@ -154,10 +123,7 @@ def _attempt_schema(
     :return: An `Outcome` object describing containing success/failure
         information and a result if successful.
     """
-    try:
-        return Outcome(element, result=element(value, property_), error=None)
-    except (TypeError, ValidationError) as exc:
-        return Outcome(element, result=None, error=exc)
+    pass
 
 
 def _attempt_schemas(
@@ -176,29 +142,4 @@ def _attempt_schemas(
     :raises ValidationError: if there are no matching schemas.
     :raises ValueError: if passed an invalid mode.
     """
-    outcomes = [
-        _attempt_schema(element, value, property_) for element in elements
-    ]
-    results = [outcome.result for outcome in outcomes if not outcome.error]
-    errors = [outcome.error for outcome in outcomes if outcome.error]
-    if not results:
-        raise ValidationError.combine(
-            property_, value, errors, "Does not match any accepted schema."
-        )
-
-    if mode == "anyOf":
-        return results[0]
-    if mode == "oneOf":
-        if len(results) > 1:
-            raise ValidationError.multiple_composition_match(
-                [outcome.target for outcome in outcomes if not outcome.error],
-                value,
-            )
-        return results[0]
-    if mode == "allOf":
-        if errors:
-            raise ValidationError.combine(
-                property_, value, errors, "Does not match all required schemas."
-            )
-        return results[0]
-    raise ValueError(f"Got bad argument for `mode`: {mode}")  # pragma: no cover
+    pass

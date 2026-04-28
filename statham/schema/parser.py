@@ -183,8 +183,7 @@ def _parse_contains(
     schema: Dict[str, Any], state: _ParseState = None
 ) -> Element:
     """Parse schema contains keyword."""
-    state = state or _ParseState()
-    return parse_element(schema["contains"], state)
+    pass
 
 
 def _parse_composition(
@@ -338,26 +337,7 @@ def _parse_properties(
     schema: Dict[str, Any], state: _ParseState = None
 ) -> Dict[str, _Property]:
     """Parse properties from a schema element."""
-    state = state or _ParseState()
-    required = set(schema.get("required", []))
-    properties = schema.get("properties", {})
-    return {
-        **{
-            _parse_attribute_name(key): _Property(
-                parse_element(value, state),
-                required=key in required,
-                source=key,
-            )
-            for key, value in properties.items()
-            # Ignore malformed values.
-            if isinstance(value, (dict, bool))
-        },
-        **{
-            _parse_attribute_name(key): prop
-            for key, prop in properties.items()
-            if isinstance(prop, _Property)
-        },
-    }
+    pass
 
 
 def _parse_attribute_name(name: str) -> str:
@@ -367,16 +347,7 @@ def _parse_attribute_name(name: str) -> str:
     """
 
     def _char_map(idx: int, char: str) -> str:
-        if char.isalnum() or char in ("_", "-", " "):
-            return char
-        if char in string.whitespace:
-            return "_"
-        label = unicodedata.name(char, "unknown").lower()
-        if idx != 0 and name[idx - 1] != "_":
-            label = "_" + label
-        if idx != len(name) - 1 and name[idx + 1] != "_":
-            label = label + "_"
-        return label
+        pass
 
     chars = map(expand(_char_map), enumerate(name))
     name = "".join(chars).replace(" ", "_").replace("-", "_")
@@ -394,27 +365,14 @@ def _parse_pattern_properties(
     schema: Dict[str, Any], state: _ParseState = None
 ) -> Dict[str, Element]:
     """Parse schema patternProperties keyword."""
-    state = state or _ParseState()
-    return {
-        **{
-            key: parse_element(value, state)
-            for key, value in schema["patternProperties"].items()
-            if isinstance(value, (dict, bool))
-        },
-        **{
-            key: value
-            for key, value in schema["patternProperties"].items()
-            if isinstance(value, Element)
-        },
-    }
+    pass
 
 
 def _parse_property_names(
     schema: Dict[str, Any], state: _ParseState = None
 ) -> Element:
     """Parse schema propertyNames keyword."""
-    state = state or _ParseState()
-    return parse_element(schema["propertyNames"], state)
+    pass
 
 
 def _parse_additional(
@@ -466,30 +424,14 @@ def _parse_items(
 
     If not present, defaults to `Element()`.
     """
-    state = state or _ParseState()
-    items = schema.get("items", {})
-    if isinstance(items, list):
-        return [parse_element(item, state) for item in items]
-    return parse_element(items, state)
+    pass
 
 
 def _parse_dependencies(
     schema: Dict[str, Any], state: _ParseState = None
 ) -> Dict[str, Union[List[str], Element]]:
     """Parse dependencies keyword from schema."""
-    state = state or _ParseState()
-    return {
-        **{
-            key: value
-            for key, value in schema["dependencies"].items()
-            if isinstance(value, (list, Element))
-        },
-        **{
-            key: parse_element(value, state)
-            for key, value in schema["dependencies"].items()
-            if isinstance(value, (dict, bool))
-        },
-    }
+    pass
 
 
 def _compose_elements(
@@ -514,7 +456,7 @@ def _keyword_filter(type_: Type) -> Callable[[Dict[str, Any]], Dict[str, Any]]:
     args = {param.name for param in params}
 
     def _filter(schema: Dict[str, Any]) -> Dict[str, Any]:
-        return {key: value for key, value in schema.items() if key in args}
+        pass
 
     return _filter
 

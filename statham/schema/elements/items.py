@@ -17,7 +17,7 @@ class Items:
 
     @staticmethod
     def property(property_, index):
-        return property_.evolve(name=property_.name or "" + f"[{index}]")
+        pass
 
     def __repr__(self):
         items = [repr(self.items)]

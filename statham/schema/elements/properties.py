@@ -25,9 +25,7 @@ class Properties:
             self.additional = additional
 
     def property(self, element, name):
-        prop = Property(element)
-        prop.bind(name=name, parent=self.element)
-        return prop
+        pass
 
     def __repr__(self):
         props = [repr(self.props)]
@@ -92,9 +90,7 @@ class PatternDict(Dict[str, T], Generic[T]):
             raise KeyError
 
     def getall(self, key: str) -> Iterator[T]:
-        for pattern, value in self.items():  # pylint: disable=no-member
-            if re.search(pattern, key):
-                yield value
+        pass
 
     def __contains__(self, key: Any) -> bool:
         try:

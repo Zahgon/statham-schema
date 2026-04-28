@@ -48,17 +48,11 @@ class _Property(Generic[PropType]):
         )
 
     def clone(self):
-        return _Property(
-            self.element, required=self.required, source=self.source
-        )
+        pass
 
     def evolve(self, name: str) -> "_Property":
         """Generate renamed property object to pass into nested elements."""
-        property_: _Property[PropType] = _Property(
-            element=self.element, required=self.required, source=self.source
-        )
-        property_.bind(name=name, parent=self.parent)
-        return property_
+        pass
 
     def bind(self, name: str = None, parent: "Element" = None) -> None:
         if parent:
@@ -80,11 +74,7 @@ class _Property(Generic[PropType]):
 
     @property
     def annotation(self):
-        if self.required or not isinstance(
-            getattr(self.element, "default", NotPassed()), NotPassed
-        ):
-            return self.element.annotation
-        return f"Maybe[{self.element.annotation}]"
+        pass
 
     def python(self) -> str:
         prop_def = repr(self)
@@ -153,19 +143,13 @@ class _PropertyDict(Dict[str, _Property[Any]]):
 
     @property
     def parent(self) -> "Element":
-        return self._parent
+        pass
 
     @parent.setter
     def parent(self, value: "Element"):
-        self._parent = value
-        for key, prop in self.items():  # pylint: disable=no-member
-            prop.bind(name=key, parent=value)
+        pass
 
     @property
     def required(self):
         # pylint: disable=no-member
-        return [
-            prop.source or name
-            for name, prop in self.items()
-            if prop.required and isinstance(prop.element.default, NotPassed)
-        ]
+        pass

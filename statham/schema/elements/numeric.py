@@ -46,7 +46,7 @@ class Integer(NumericElement[int]):
 
     @property
     def type_validator(self):
-        return InstanceOf(int)
+        pass
 
 
 class Number(NumericElement[float]):
@@ -56,8 +56,8 @@ class Number(NumericElement[float]):
     """
 
     def construct(self, value, _property):  # pylint: disable=no-self-use
-        return float(value)
+        pass
 
     @property
     def type_validator(self):
-        return InstanceOf(float, int)
+        pass

@@ -13,8 +13,7 @@ class MinItems(Validator):
     message = "Must contain at least {minItems} items."
 
     def _validate(self, value: Any):
-        if len(value) < self.params["minItems"]:
-            raise ValidationError
+        pass
 
 
 class MaxItems(Validator):
@@ -25,8 +24,7 @@ class MaxItems(Validator):
     message = "Must contain fewer than {maxItems} items."
 
     def _validate(self, value: Any):
-        if len(value) > self.params["maxItems"]:
-            raise ValidationError
+        pass
 
 
 class AdditionalItems(Validator):
@@ -40,13 +38,7 @@ class AdditionalItems(Validator):
     message = "Must not contain additional items. Accepts: {items}"
 
     def _validate(self, value: Any):
-        if not isinstance(self.params["items"], list):
-            return
-        if len(value) <= len(self.params["items"]):
-            return
-        if self.params["additionalItems"]:
-            return
-        raise ValidationError
+        pass
 
 
 class UniqueItems(Validator):
@@ -67,17 +59,7 @@ class UniqueItems(Validator):
 
     def _validate(self, value: Any):
         # Once again, Cpython's 1 in [True] nightmare.
-        aliased_value = list(map(replace_bool, value))
-        length = len(aliased_value)
-        try:
-            # Try the hashable approach
-            if len(set(aliased_value)) == length:
-                return
-        except TypeError:
-            # Long version
-            if len(remove_duplicates(aliased_value)) == length:
-                return
-        raise ValidationError
+        pass
 
 
 class Contains(Validator):
@@ -88,10 +70,4 @@ class Contains(Validator):
     message = "Must contain one element matching {contains}."
 
     def _validate(self, value: Any):
-        for sub_value in value:
-            try:
-                _ = self.params["contains"](sub_value)
-                return
-            except (TypeError, ValidationError):
-                continue
-        raise ValidationError
+        pass
